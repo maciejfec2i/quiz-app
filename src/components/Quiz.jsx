@@ -86,6 +86,7 @@ export default function Quiz() {
       </div>
       <div className="quiz-footer">
         <button className="submit-answer-btn" ref={startGameBtnRef} onClick={() => clickEvents.submitAnswer({selectedAnswer, correctAnswer, allAnswerElRefs, currentQuestionIndex, setCurrentQuestionIndex, startGameBtnRef, setDifficulty, setQuestions})}>Submit</button>
+        <button className="submit-answer-btn" onClick={() => clickEvents.resetGame({setDifficulty, setQuestions})}>Reset</button>
       </div>
     </div>
   )
