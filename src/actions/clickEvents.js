@@ -35,18 +35,23 @@ async function submitAnswer({selectedAnswer, correctAnswer, allAnswerElRefs, cur
     await wait()
 
     if(currentQuestionIndex + 1 > 9) {
-        setDifficulty(null)
-        setQuestions([])
+        resetGame({setDifficulty, setQuestions})
     }
     else setCurrentQuestionIndex(currentQuestionIndex + 1)
     selectedAnswer.current = null
     startGameBtnRef.current.disabled = false
 }
 
+function resetGame({setDifficulty, setQuestions}) {
+    setDifficulty(null)
+    setQuestions([])
+}
+
 const funcs = {
     answerSelection,
     startGame,
-    submitAnswer
+    submitAnswer,
+    resetGame
 }
 
 export default funcs
