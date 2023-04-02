@@ -21,6 +21,5 @@ export default function useTriviaApi({difficulty, difficultyLevels}) {
         getQuestions()
     }, [difficulty])
 
-    console.log(questions)
     return [questions, setQuestions]
 }
