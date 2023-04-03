@@ -51,7 +51,7 @@ export default function Quiz() {
         <h1 className="title no-text-select">Quiz App</h1>
       </div>
       <div className="quiz-body flex-container centre">
-        <img src="/brain.png" alt="brain icon with a question mark" className="category-icon" />
+        <img src="../../public/brain.png" alt="brain icon with a question mark" className="category-icon" />
         <p className="question no-text-select">Select difficulty level</p>
         <Context.Provider value={selectedDifficulty}>
           <DifficultyLevels difficultyLevels={difficultyLevels} />
