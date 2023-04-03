@@ -15,6 +15,7 @@ import gepgraphyIcon from "../assets/map.png"
 import historyIcon from "../assets/parchment.png"
 import societyIcon from "../assets/sociology.png"
 import filmIcon from "../assets/watching.png"
+import Slider from './Slider'
 
 export const Context = createContext();
 
@@ -23,7 +24,9 @@ export default function Quiz() {
   const difficultyLevels = ["easy", "medium", "hard"]
   const selectedDifficulty = useRef(null)
   const [difficulty, setDifficulty] = useState(null)
-  const [questions, setQuestions] = useTriviaApi({difficulty, difficultyLevels})
+  const [numOfQuestions, setNumOfQuestions] = useState(10)
+
+  const [questions, setQuestions] = useTriviaApi({numOfQuestions, difficulty, difficultyLevels})
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(null)
   const [question, category, correctAnswer, allAnswers] = useQuestionSelect({questions, currentQuestionIndex})
   const allAnswerElRefs = useRef([])
@@ -55,6 +58,7 @@ export default function Quiz() {
         </Context.Provider>
       </div>
       <div className="quiz-footer">
+        <Slider numOfQuestions={numOfQuestions} setNumOfQuestions={setNumOfQuestions} />
         <button className="submit-answer-btn" onClick={() => clickEvents.startGame({selectedDifficulty, setDifficulty, setCurrentQuestionIndex})}>Start</button>
       </div>
     </div>
@@ -85,7 +89,7 @@ export default function Quiz() {
         </Context.Provider>
       </div>
       <div className="quiz-footer">
-        <button className="submit-answer-btn" ref={startGameBtnRef} onClick={() => clickEvents.submitAnswer({selectedAnswer, correctAnswer, allAnswerElRefs, currentQuestionIndex, setCurrentQuestionIndex, startGameBtnRef, setDifficulty, setQuestions})}>Submit</button>
+        <button className="submit-answer-btn" ref={startGameBtnRef} onClick={() => clickEvents.submitAnswer({selectedAnswer, correctAnswer, allAnswerElRefs, currentQuestionIndex, setCurrentQuestionIndex, startGameBtnRef, setDifficulty, setQuestions, numOfQuestions})}>Submit</button>
         <button className="submit-answer-btn" onClick={() => clickEvents.resetGame({setDifficulty, setQuestions})}>Reset</button>
       </div>
     </div>

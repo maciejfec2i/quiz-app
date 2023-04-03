@@ -18,7 +18,7 @@ function startGame({selectedDifficulty, setDifficulty, setCurrentQuestionIndex})
     setCurrentQuestionIndex(0)
 }
 
-async function submitAnswer({selectedAnswer, correctAnswer, allAnswerElRefs, currentQuestionIndex, setCurrentQuestionIndex, startGameBtnRef, setDifficulty,setQuestions}) {
+async function submitAnswer({selectedAnswer, correctAnswer, allAnswerElRefs, currentQuestionIndex, setCurrentQuestionIndex, startGameBtnRef, setDifficulty,setQuestions, numOfQuestions}) {
     if(selectedAnswer.current == null) return
 
     startGameBtnRef.current.disabled = true
@@ -34,7 +34,7 @@ async function submitAnswer({selectedAnswer, correctAnswer, allAnswerElRefs, cur
 
     await wait()
 
-    if(currentQuestionIndex + 1 > 9) {
+    if(currentQuestionIndex + 1 > numOfQuestions - 1) {
         resetGame({setDifficulty, setQuestions})
     }
     else setCurrentQuestionIndex(currentQuestionIndex + 1)

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-export default function useTriviaApi({difficulty, difficultyLevels}) {
-    const url = `https://the-trivia-api.com/api/questions?limit=10&difficulty=${difficulty}`
+export default function useTriviaApi({numOfQuestions, difficulty, difficultyLevels}) {
+    const url = `https://the-trivia-api.com/api/questions?limit=${numOfQuestions}&difficulty=${difficulty}`
     const [questions, setQuestions] = useState([])
 
     useEffect(() => {
