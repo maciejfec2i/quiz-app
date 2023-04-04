@@ -3,7 +3,8 @@ import wait from "./wait"
 function answerSelection({answerRef, selectedAnswer}) {
     const selectedAnswerClass = "selected-answer"
 
-    if(answerRef.current.classList.contains(selectedAnswerClass)) return 
+    if(answerRef.current.classList.contains(selectedAnswerClass)) return
+    if(selectedAnswer.current !== null && (selectedAnswer.current.classList.contains("correct-answer") || selectedAnswer.current.classList.contains("incorrect-answer"))) return
     
     if(selectedAnswer.current !== null && selectedAnswer.current !== answerRef.current) {
         selectedAnswer.current.classList.toggle("selected-answer")
@@ -12,10 +13,25 @@ function answerSelection({answerRef, selectedAnswer}) {
     selectedAnswer.current = answerRef.current
 }
 
-function startGame({selectedDifficulty, setDifficulty, setCurrentQuestionIndex}) {
-    if(selectedDifficulty.current === null) return
-    setDifficulty(selectedDifficulty.current.textContent)
-    setCurrentQuestionIndex(0)
+function startGame({difficultyLevels, setDifficulty, setCurrentQuestionIndex}) {
+    
+    difficultyLevels.forEach(level => {
+        if(level.selected) {
+            setDifficulty(level.level)
+            setCurrentQuestionIndex(0)
+        }
+    })
+}
+
+function difficultySelection({difficultyLevels, setDifficultyLevels, difficultyRef}) {
+    difficultyLevels.forEach((difficultyLevel) => {
+        if(difficultyLevel.level === difficultyRef.current.textContent) {
+            difficultyLevel.selected = true
+        }
+        else difficultyLevel.selected = false
+    })
+
+    setDifficultyLevels([...difficultyLevels])
 }
 
 async function submitAnswer({selectedAnswer, correctAnswer, allAnswerElRefs, currentQuestionIndex, setCurrentQuestionIndex, startGameBtnRef, setDifficulty,setQuestions, numOfQuestions}) {
@@ -49,6 +65,7 @@ function resetGame({setDifficulty, setQuestions}) {
 
 const funcs = {
     answerSelection,
+    difficultySelection,
     startGame,
     submitAnswer,
     resetGame

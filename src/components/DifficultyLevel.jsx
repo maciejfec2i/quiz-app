@@ -2,12 +2,12 @@ import React, { useContext, useRef } from 'react'
 import { Context } from './Quiz'
 import clickEvents from '../actions/clickEvents'
 
-export default function DifficultyLevel({ difficultyLevel }) {
+export default function DifficultyLevel({ difficultyLevel, selected, difficultyLevels }) {
 
   const difficultyRef = useRef() 
-  const selectedDifficulty = useContext(Context)
+  const setDifficultyLevels = useContext(Context)
 
   return (
-    <div className="answer no-text-select" ref={difficultyRef} onClick={() => clickEvents.answerSelection({answerRef: difficultyRef, selectedAnswer: selectedDifficulty})}>{difficultyLevel}</div>
+    <div className={"answer no-text-select" + (selected ? " selected-answer" : "")} ref={difficultyRef} onClick={() => clickEvents.difficultySelection({difficultyLevels, setDifficultyLevels, difficultyRef})}>{difficultyLevel}</div>
   )
 }
