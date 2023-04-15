@@ -13,9 +13,7 @@ export default function useTriviaApi({numOfQuestions, difficulty, listOfLevels})
                     setQuestions([...response.data])
                 }
             }
-            catch {
-        
-            }
+            catch {}
         }
 
         getQuestions()
