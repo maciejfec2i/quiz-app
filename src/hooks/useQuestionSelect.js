@@ -1,21 +1,34 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import arrayShuffle from "array-shuffle";
 
 export default function useQuestionSelect({questions, currentQuestionIndex}) {
-    const [question, setQuestion] = useState("")
-    const [category, setCategory] = useState("")
-    const correctAnswer = useRef("")
-    const incorrectAnswers = useRef([])
-    const allAnswers = useRef([])
+    
+    const [currentQuestion, setCurrentQuestion] = useState({
+        question: "", 
+        category: "",
+        correctAnswer: ""
+    })
+    const [allAnswers, setAllAnswers] = useState([])
 
     useEffect(() => {
-        setQuestion(questions[currentQuestionIndex]?.question)
-        setCategory(questions[currentQuestionIndex]?.category)
-        correctAnswer.current = questions[currentQuestionIndex]?.correctAnswer
-        incorrectAnswers.current = questions[currentQuestionIndex]?.incorrectAnswers
-        if(incorrectAnswers.current?.length > 0) allAnswers.current = arrayShuffle([correctAnswer.current, ...incorrectAnswers.current])
 
+        const question = questions[currentQuestionIndex]?.question
+        const category = questions[currentQuestionIndex]?.category
+        const correctAnswer = questions[currentQuestionIndex]?.correctAnswer
+        const incorrectAnswers = questions[currentQuestionIndex]?.incorrectAnswers
+        let answers = incorrectAnswers && incorrectAnswers.length > 0 ? arrayShuffle([correctAnswer, ...incorrectAnswers]) : []
+
+        answers = answers.map(answer => {
+            return {value: answer, selected: false, correct: undefined}
+        })
+        
+        setCurrentQuestion({
+            question,
+            category,
+            correctAnswer
+        })
+        setAllAnswers([...answers])
     }, [questions, currentQuestionIndex])
 
-    return [question, category, correctAnswer.current, allAnswers.current]
+    return [currentQuestion, allAnswers, setAllAnswers]
 }
