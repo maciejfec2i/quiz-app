@@ -2,9 +2,12 @@ import { useRef, useContext } from 'react'
 import clickEvents from '../actions/clickEvents'
 import { Context } from '../context/context'
 
-export default function Answer({answers, answer, selectionDisabled}) {
+export default function Answer({ answer }) {
   const answerRef = useRef()
-  const setAllAnswers = useContext(Context)
+  const context = useContext(Context)
+  const answers = context.allAnswers
+  const setAllAnswers = context.setAllAnswers
+  const selectionDisabled = context.selectionDisabled
 
   const answerSelected = answer.selected ? " selected-answer" : ""
   const answerCorrect = answer.correct ? " correct-answer" : "" 

@@ -1,3 +1,5 @@
+import React, { useContext } from 'react'
+import { Context } from '../context/context'
 import artIcon from "../assets/palette.png"
 import sportIcon from "../assets/bike.png"
 import generalKnowledgeIcon from "../assets/book.png"
@@ -9,7 +11,10 @@ import historyIcon from "../assets/parchment.png"
 import societyIcon from "../assets/sociology.png"
 import filmIcon from "../assets/watching.png"
 
-export default function CategoryIcon({ category }) {
+export default function CategoryIcon() {
+
+  const context = useContext(Context)
+  const category = context.currentQuestion.category
 
   const categoryIcons = {
     "Arts & Literature": artIcon,
@@ -23,6 +28,8 @@ export default function CategoryIcon({ category }) {
     "Society & Culture": societyIcon,
     "Sport & Leisure": sportIcon
   }
+
+
 
   return (
     <img src={categoryIcons[category]} alt={`${category} icon`} className="category-icon" />

@@ -16,7 +16,7 @@ export default function QuizFooter() {
   const setAllAnswers = context.setAllAnswers
   const currentQuestionIndex = context.currentQuestionIndex
   const setQuestions = context.setQuestions
-  const correctAnswer = context.correctAnswer
+  const correctAnswer = context.currentQuestion.correctAnswer
   const selectionDisabled = context.selectionDisabled
   
   if(difficulty === null) return (
