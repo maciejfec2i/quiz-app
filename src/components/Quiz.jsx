@@ -8,6 +8,7 @@ import CategoryIcon from './CategoryIcon'
 import QuizHeader from './QuizHeader'
 import QuizFooter from './QuizFooter'
 import { Context } from '../context/context'
+import QuizBody from './QuizBody'
 
 export default function Quiz() {
 
@@ -21,7 +22,7 @@ export default function Quiz() {
 
   const selectionDisabled = useRef(false)
   
-  if (difficulty === null) return (
+  if (!difficulty) return (
     <div className="quiz-container flex-container">
       <QuizHeader />
       <div className="quiz-body flex-container centre">
@@ -40,10 +41,9 @@ export default function Quiz() {
   if(questions.length === 0) return (
     <div className="quiz-container">
       <QuizHeader />
-      <div className="quiz-body flex-container centre">
-        <div className="loading"></div>
-        <AnswersWire />
-      </div>
+      <Context.Provider value={{questions}}>
+        <QuizBody />
+      </Context.Provider>
     </div>
   )
   
