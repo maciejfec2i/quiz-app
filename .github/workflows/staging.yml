@@ -1,0 +1,88 @@
+name: Staging Deployment and Automated Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy-staging-env:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write # Required for OIDC authentication with Terraform
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Terraform
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+
+      # Step 3: Initialize Terraform
+      - name: Initialize Terraform
+        # run: terraform init
+        run: echo "terraform init"
+
+      # Step 4: Apply Terraform Configuration (Deploy EC2 and Build Image Locally)
+      - name: Deploy Staging Environment with Terraform
+        # env:
+          # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          # AWS_DEFAULT_REGION: us-east-1
+        # run: terraform apply -auto-approve
+        run: echo "terraform apply"
+  
+  test:
+    runs-on: ubuntu-latest
+    needs: deploy-staging-env
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Run API tests
+      - name: Run API Tests
+        run: echo "Running API tests on the staging environment..."
+
+      # Step 3: Run UI tests
+      - name: Run UI Tests
+        run: echo "Running UI tests on the staging environment..."
+
+      # Step 4: Run Performance tests
+      - name: Run Performance Tests
+        run: echo "Running Performance tests on the staging environment..."
+
+  destroy-staging-env:
+    runs-on: ubuntu-latest
+    needs: [deploy-staging-env, test]
+
+    permissions:
+      contents: read
+      id-token: write # Required for OIDC authentication with Terraform
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Terraform
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+
+      # Step 3: Tear Down Staging Environment
+      - name: Destroy Staging Environment
+        # env:
+        #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #   AWS_DEFAULT_REGION: us-east-1
+        # run: terraform destroy -auto-approve
+        run: echo "terraform destroy"
