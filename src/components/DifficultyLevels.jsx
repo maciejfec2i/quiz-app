@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from 'react'
 import { Context } from '../context/context'
 import DifficultyLevel from './DifficultyLevel'
+import("crypto")
 
 export default function DifficultyLevels() {
 

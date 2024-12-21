@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Context } from '../context/context'
 import Answer from './Answer'
+import("crypto")
 
 export default function Answers() {
 

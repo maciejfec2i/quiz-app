@@ -1,3 +1,5 @@
+import("crypto")
+
 export default function AnswersWire() {
   const frames = [0, 0, 0, 0]  
 
