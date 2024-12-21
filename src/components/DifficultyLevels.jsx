@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react'
 import { Context } from '../context/context'
 import DifficultyLevel from './DifficultyLevel'
-import("crypto")
+import { v4 as uuidv4 } from 'uuid'
 
 export default function DifficultyLevels() {
 
@@ -10,7 +10,7 @@ export default function DifficultyLevels() {
 
   return (
     difficultyLevels.map((difficultyLevel) => {
-        return <DifficultyLevel difficultyLevel={difficultyLevel} key={crypto.randomUUID()} />
+        return <DifficultyLevel difficultyLevel={difficultyLevel} key={uuidv4()} />
     })
   )
 }
