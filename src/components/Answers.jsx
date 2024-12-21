@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Context } from '../context/context'
 import Answer from './Answer'
-import("crypto")
+import { v4 as uuidv4 } from 'uuid'
 
 export default function Answers() {
 
@@ -10,7 +10,7 @@ export default function Answers() {
 
   return (
     answers.map((answer) => {
-        return <Answer key={crypto.randomUUID()} answer={answer} />
+        return <Answer key={uuidv4()} answer={answer} />
     })
   )
 }
