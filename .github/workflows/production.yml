@@ -66,6 +66,11 @@ jobs:
           cd terraform
           terraform init
           terraform apply -var "environment=production" -auto-approve
+          terraform output -json > tf_outputs.json
+
+        - name: Parse Public IP
+          id: parse_ip
+          run: echo "::set-output name=public_ip::$(jq -r .public_ip.value tf_outputs.json)"
 
       # Health Check Step
       - name: Wait for Application to Become Available
@@ -73,13 +78,13 @@ jobs:
         run: |
           echo "Waiting for application to become available..."
           TIMEOUT=0
-          while ! curl -s http://${{ steps.terraform.outputs.public_ip }}:3000 > /dev/null; do
+          while ! curl -s http://${{ steps.parse_ip.outputs.public_ip }}:3000 > /dev/null; do
             echo "App is not ready yet. Retrying in 10 seconds..."
             sleep 10
             TIMEOUT=$((TIMEOUT + 10))
-            if [ "$TIMEOUT" -ge 300 ]; then
+            if [ "$TIMEOUT" -ge 120 ]; then
               echo "App failed to start within the timeout period."
               exit 1
             fi
           done
-          echo "App is ready and accessible at http://${{ steps.terraform.outputs.public_ip }}:3000"
+          echo "App is ready and accessible at http://${{ steps.parse_ip.outputs.public_ip }}:3000"
