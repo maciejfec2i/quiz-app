@@ -19,3 +19,9 @@ variable "ec2_instance_type" {
   type        = string
   default     = "t2.micro"
 }
+
+variable "aws_profile" {
+  description = "AWS profile to use when running locally"
+  type        = string
+  default     = ""
+}

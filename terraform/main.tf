@@ -10,7 +10,7 @@ terraform {
 }
 
 provider "aws" {
-  profile = "default"
+  profile = var.aws_profile != "" ? var.aws_profile : null
   region  = "eu-west-2"
 }
 
