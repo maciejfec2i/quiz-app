@@ -73,16 +73,16 @@ resource "aws_instance" "app_server" {
   vpc_security_group_ids      = [aws_security_group.app_server_sg.id]
   associate_public_ip_address = true
 
-  # user_data = <<-EOF
-  # #!bin/bash
+  user_data = <<-EOF
+  #!bin/bash
 
-  # sudo apt-get update -y
-  # sudo apt-get install -y docker.io
-  # systemctl enable docker
-  # systemctl start docker
-  # sudo docker pull ghcr.io/maciejfec2i/quiz-app/quiz-app:latest
-  # sudo docker run -p 3000:3000 -it -d ghcr.io/maciejfec2i/quiz-app/quiz-app:latest
-  # EOF
+  sudo apt-get update -y
+  sudo apt-get install -y docker.io
+  systemctl enable docker
+  systemctl start docker
+  sudo docker pull ghcr.io/maciejfec2i/quiz-app/quiz-app:latest
+  sudo docker run -p 3000:3000 -it -d ghcr.io/maciejfec2i/quiz-app/quiz-app:latest
+  EOF
 
   tags = {
     Name = local.ec2_instance_name
