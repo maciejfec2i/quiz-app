@@ -67,6 +67,8 @@ jobs:
           cd terraform
           terraform init
           terraform apply -var "environment=production" -auto-approve
+          output =$(terraform output ec2_instance_public_ip)
+          echo $output
 
       # Health Check Step
       - name: Wait for Application to Become Available
