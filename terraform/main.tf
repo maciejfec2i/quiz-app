@@ -7,6 +7,12 @@ terraform {
   }
 
   required_version = ">= 1.2.0"
+
+  backend "s3" {
+    bucket = "terraform-infra-states"
+    key    = "quiz-app/prod.tfstate"
+    region = "eu-west-2"
+  }
 }
 
 provider "aws" {
