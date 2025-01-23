@@ -11,7 +11,8 @@ html {
 }
 
 body {
-  background: #fffef2;
+  /* background: #fffef2; */
+  background: #ff1111;
   font-size: 1.6rem;
   font-family: "Roboto", sans-serif;
 }
