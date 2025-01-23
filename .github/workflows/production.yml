@@ -66,6 +66,7 @@ jobs:
         run: |
           cd terraform
           terraform init
+          terraform destroy -auto-approve
           terraform apply -var "environment=production" -auto-approve
           echo EC2_INSTANCE_PUBLIC_IP=$(terraform output ec2_instance_public_ip) >> $GITHUB_ENV
           echo ${{ env.EC2_INSTANCE_PUBLIC_IP }}
