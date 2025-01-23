@@ -58,6 +58,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.0  # Use your preferred version    
+          terraform_wrapper: false
 
       # Deploy Infrastructure with Terraform
       - name: Terraform Apply
