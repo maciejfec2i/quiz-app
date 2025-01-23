@@ -67,14 +67,14 @@ jobs:
           cd terraform
           terraform init
           terraform apply -var "environment=production" -auto-approve
-          output=$(terraform output ec2_instance_public_ip)
-          echo $output
+          echo EC2_INSTANCE_PUBLIC_IP=$(terraform output ec2_instance_public_ip) >> $GITHUB_ENV
+          echo ${{ env.EC2_INSTANCE_PUBLIC_IP }}
 
       # Health Check Step
       - name: Wait for Application to Become Available
         id: healthcheck
         run: |
-          echo "EC2 Public IP is '${{ steps.terraform.outputs.ec2_instance_public_ip }}'"
+          echo "EC2 Public IP is '${{ env.EC2_INSTANCE_PUBLIC_IP }}'"
         # run: |
         #   echo "Waiting for application to become available..."
         #   TIMEOUT=0
